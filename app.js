@@ -10,7 +10,7 @@ const db = getFirestore(app);
 const stateRef = doc(db, DOC_PATH.collection, DOC_PATH.doc);
 
 // ---------- Estado local ----------
-let state = { nomeFrota: "Painel da Frota", cars: [] };
+let state = { nomeFrota: "Frota do Angelo", cars: [] };
 let editingCarId = null;   // carro sendo editado no modal de carro
 let entryCarId = null;     // carro alvo do modal de lançamento
 let entryTipo = "receita";
@@ -56,7 +56,7 @@ const nomeEl = $("#nomeFrota");
 nomeEl.addEventListener("focus", () => (isTypingName = true));
 nomeEl.addEventListener("blur", () => {
   isTypingName = false;
-  const txt = nomeEl.textContent.trim() || "Painel da Frota";
+  const txt = nomeEl.textContent.trim() || "Frota do Angelo";
   nomeEl.textContent = txt;
   state.nomeFrota = txt;
   persist();
@@ -103,7 +103,7 @@ function carTotals(car) {
 }
 
 function render() {
-  if (!isTypingName) nomeEl.textContent = state.nomeFrota || "Painel da Frota";
+  if (!isTypingName) nomeEl.textContent = state.nomeFrota || "Frota do Angelo";
 
   let totalReceita = 0, totalDespesa = 0;
   (state.cars || []).forEach((car) => {
