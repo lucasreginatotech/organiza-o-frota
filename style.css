@@ -249,6 +249,7 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; }
 }
 .entry-desc { color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .entry-date { color: var(--ink-soft); font-family: var(--font-mono); font-size: 11.5px; }
+.entry-renter { color: var(--orange); font-size: 11.5px; font-weight: 600; margin: 2px 0; }
 .entry-value { font-family: var(--font-mono); font-weight: 600; white-space: nowrap; }
 .entry-value.receita { color: var(--cyan); }
 .entry-value.despesa { color: var(--red); }
