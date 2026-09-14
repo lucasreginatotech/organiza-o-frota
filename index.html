@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel da Frota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">◐</span>
+        <h1 id="nomeFrota" contenteditable="true" spellcheck="false">Painel da Frota</h1>
+      </div>
+      <div class="sync-status" id="syncStatus">conectando…</div>
+    </div>
+  </header>
+
+  <section class="painel" aria-label="Resumo geral">
+    <div class="painel-inner">
+      <div class="gauge">
+        <span class="gauge-label">recebido no total</span>
+        <span class="gauge-value" id="totalReceita">R$ 0,00</span>
+      </div>
+      <div class="gauge">
+        <span class="gauge-label">gasto no total</span>
+        <span class="gauge-value" id="totalDespesa">R$ 0,00</span>
+      </div>
+      <div class="gauge gauge-lucro">
+        <span class="gauge-label">lucro</span>
+        <span class="gauge-value" id="totalLucro">R$ 0,00</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="content">
+    <div class="content-head">
+      <h2>Carros</h2>
+      <button class="btn btn-primary" id="btnNovoCarro">+ adicionar carro</button>
+    </div>
+
+    <div class="cars-grid" id="carsGrid">
+      <!-- carros entram aqui via JS -->
+    </div>
+
+    <p class="empty-hint" id="emptyHint" hidden>Nenhum carro cadastrado ainda. Toque em "adicionar carro" para começar.</p>
+  </main>
+
+  <!-- Modal: novo/editar carro -->
+  <dialog id="dialogCarro">
+    <form method="dialog" class="dialog-form" id="formCarro">
+      <h3 id="dialogCarroTitulo">Novo carro</h3>
+      <label>Nome ou apelido<input type="text" id="inputCarroNome" placeholder="Ex: Onix Prata" required></label>
+      <label>Placa<input type="text" id="inputCarroPlaca" placeholder="Ex: ABC-1D23"></label>
+      <label>Última troca de óleo<input type="date" id="inputOleoData"></label>
+      <label>Trocar óleo a cada (meses)<input type="number" id="inputOleoIntervalo" min="1" max="24" value="3"></label>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancelarCarro">cancelar</button>
+        <button type="submit" class="btn btn-primary">salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal: novo lançamento -->
+  <dialog id="dialogLancamento">
+    <form method="dialog" class="dialog-form" id="formLancamento">
+      <h3>Novo lançamento</h3>
+      <div class="tipo-toggle">
+        <button type="button" class="tipo-btn tipo-receita active" data-tipo="receita">recebi</button>
+        <button type="button" class="tipo-btn tipo-despesa" data-tipo="despesa">gastei</button>
+      </div>
+      <label>Valor (R$)<input type="number" id="inputValor" step="0.01" min="0" placeholder="0,00" required></label>
+      <label>Data<input type="date" id="inputData" required></label>
+      <label>Descrição<input type="text" id="inputDescricao" placeholder="Ex: Aluguel semana, troca de pneu…"></label>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" id="btnCancelarLancamento">cancelar</button>
+        <button type="submit" class="btn btn-primary">salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
