@@ -134,6 +134,7 @@ function render() {
         <div class="entry-row">
           <div style="min-width:0">
             <div class="entry-desc">${escapeHTML(e.description || (e.type === "receita" ? "Recebimento" : "Gasto"))}</div>
+            ${e.renter ? `<div class="entry-renter">👤 ${escapeHTML(e.renter)}</div>` : ""}
             <div class="entry-date">${formatDateBR(e.date)}</div>
           </div>
           <div style="display:flex; align-items:center;">
@@ -271,8 +272,13 @@ document.querySelectorAll(".tipo-btn").forEach((btn) => {
     document.querySelectorAll(".tipo-btn").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     entryTipo = btn.dataset.tipo;
+    toggleLocatarioField();
   });
 });
+
+function toggleLocatarioField() {
+  $("#labelLocatario").style.display = entryTipo === "receita" ? "flex" : "none";
+}
 
 function openLancamentoDialog(carId) {
   entryCarId = carId;
@@ -281,7 +287,9 @@ function openLancamentoDialog(carId) {
   $(".tipo-receita").classList.add("active");
   $("#inputValor").value = "";
   $("#inputDescricao").value = "";
+  $("#inputLocatario").value = "";
   $("#inputData").value = new Date().toISOString().slice(0, 10);
+  toggleLocatarioField();
   dialogLancamento.showModal();
 }
 
@@ -299,6 +307,7 @@ $("#formLancamento").addEventListener("submit", (e) => {
     amount,
     date: $("#inputData").value || new Date().toISOString().slice(0, 10),
     description: $("#inputDescricao").value.trim(),
+    renter: entryTipo === "receita" ? $("#inputLocatario").value.trim() : "",
   });
   persist();
   render();
